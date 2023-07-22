@@ -4,20 +4,20 @@ from datetime import date
 
 
 class createTask(BaseModel):
-    userId : uuid.UUID
+    usuario_id : uuid.UUID
     tarea: str
-    idState: int
+    id_estado: int
 
 
 class responseTask(BaseModel):
     id: uuid.UUID
-    userId : uuid.UUID
+    usuario_id : uuid.UUID
     tarea: str
     fecha: date
-    idState: int
+    id_estado: int
 
 
 class updateTask(BaseModel):
-    userId : uuid.UUID
+    usuario_id : uuid.UUID
     tarea: str
-    idState: int
+    id_estado: int

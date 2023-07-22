@@ -14,7 +14,7 @@ Base = declarative_base()
 class tasks(Base):
     __tablename__ = "tareas"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    userId = Column(UUID(as_uuid=True))
+    usuario_id = Column(UUID(as_uuid=True))
     tarea = Column(String(255))
     fecha = Column(Date, default=datetime.date(datetime.now()))  # Aquí se establece la fecha actual
-    idState = Column(Integer)
+    id_estado = Column(Integer)

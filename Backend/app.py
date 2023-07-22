@@ -5,6 +5,7 @@ import sys
 sys.path.append('./')
 
 from routes.user import user
+from routes.task import task
 
 
 app = FastAPI()
@@ -12,6 +13,8 @@ app = FastAPI()
 
 
 app.include_router(user)
+app.include_router(task)
+
 
 
 @app.get('/')

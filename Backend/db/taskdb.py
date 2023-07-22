@@ -4,11 +4,10 @@ import uuid
 from db.db import SessionLocal
 
 
-
 def create_task(task: createTask):
     try:
         db = SessionLocal()
-        new_task = tasks(userId=task.userId, tarea=task.tarea, idState=task.idState)
+        new_task = tasks(usuario_id=task.usuario_id, tarea=task.tarea, id_estado=task.id_estado)
         db.add(new_task)
         db.commit()
         db.refresh(new_task)
@@ -39,7 +38,7 @@ def get_taskId(id: uuid.UUID):
         return task
     except Exception as e:
         raise e
-    
+
 
 
 def update_task(id: uuid.UUID, updated_task: updateTask):
@@ -49,9 +48,9 @@ def update_task(id: uuid.UUID, updated_task: updateTask):
 
         if task:
             # Actualizar los campos del usuario con los valores proporcionados en updated_user
-            task.userId = updated_task.userId
+            task.usuario_id = updated_task.usuario_id
             task.tarea = updated_task.tarea
-            task.idState = updated_task.idState
+            task.id_estado = updated_task.id_estado
 
             db.commit()
             db.refresh(task)
@@ -68,7 +67,7 @@ def update_task(id: uuid.UUID, updated_task: updateTask):
 
 
 # Función para eliminar un usuario por su ID
-def deleteUser(id: uuid.UUID):
+def deleteTask(id: uuid.UUID):
     db = SessionLocal()
     task = db.query(tasks).filter(tasks.id == id).first()  # Cambio aquí: users.id en lugar de users.c.id
 
