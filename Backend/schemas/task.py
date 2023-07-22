@@ -2,6 +2,7 @@ import uuid
 from pydantic import BaseModel
 from datetime import date
 
+
 class createTask(BaseModel):
     userId : uuid.UUID
     tarea: str

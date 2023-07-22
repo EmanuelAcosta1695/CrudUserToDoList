@@ -6,7 +6,6 @@ import uuid
 task = APIRouter()
 
 
-
 @task.get("/user", response_model=list[responseUser], tags=["user"])
 def get_users():
     return getUsers()

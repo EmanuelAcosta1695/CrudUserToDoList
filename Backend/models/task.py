@@ -10,6 +10,7 @@ from datetime import datetime
 # Cuando defines tus modelos (tablas) utilizando clases, debes hacer que hereden de esta clase base.
 Base = declarative_base()
 
+
 class tasks(Base):
     __tablename__ = "tareas"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
@@ -17,10 +18,3 @@ class tasks(Base):
     tarea = Column(String(255))
     fecha = Column(Date, default=datetime.date(datetime.now()))  # Aquí se establece la fecha actual
     idState = Column(Integer)
-
-
-# {
-#     "userID" : "idUsuario",
-#     "tarea" : "",
-#     "idState" : 1
-# }
