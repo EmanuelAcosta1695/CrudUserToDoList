@@ -48,13 +48,10 @@ def update_user_by_id(id: uuid.UUID, updated_user: updateUser):
 
 
 @user.delete("/user/{id}", tags=["user"])
-def delete_user(id: str):  # Asegúrate de que el parámetro id sea de tipo str
+def delete_user(id: uuid.UUID):  # Asegúrate de que el parámetro id sea de tipo str
     
     try:
-        # Convertir el id de str a uuid.UUID
-        user_id = uuid.UUID(id)
-
-        deleted_user = deleteUser(user_id)
+        deleted_user = deleteUser(id)
 
         if deleted_user is None:
             raise HTTPException(status_code=404, detail="User not found")

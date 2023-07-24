@@ -23,7 +23,12 @@ def create_task(task: createTask):
 # Función para obtener todos los usuarios
 def getTasks():
     db = SessionLocal()
+
+    # Aplicar filtro para obtener solo las tareas con id_estado igual a 1 o 2
+    #tasks_db = db.query(tasks).filter(tasks.id_estado.in_([1, 2])).all()
+
     tasks_db = db.query(tasks).all()
+    
     db.close()
     return tasks_db
 
