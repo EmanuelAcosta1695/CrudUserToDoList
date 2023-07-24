@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks</title>
+</head>
+
+<body>
+
+    <table class="listToDo">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Created at</th>
+                <th>UsuarioId</th>
+                <th>Id_estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task['tarea'] }}</td>
+                <td>{{ task['fecha'] }}</td>
+                <td>{{ task['usuario_id'] }}</td>
+                <td>
+                    {% if task['id_estado'] == 1 %}
+                        Pendiente.
+                    {% elif  task['id_estado'] == 2 %}
+                        En progreso.
+                    {% endif %}
+                </td>
+                <td></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</body>
+
+</html>
