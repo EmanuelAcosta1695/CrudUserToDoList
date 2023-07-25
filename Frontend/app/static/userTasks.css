@@ -19,8 +19,6 @@ body {
     font-size: 50px;
 }
 
-/* ------------------ Create task ---------------*/
-
 a {
     color: rgb(63, 56, 56);
     text-decoration: none;
@@ -36,51 +34,6 @@ a {
     border: 0px solid rgb(224, 172, 0);
 }
 
-
-.form {
-    text-align: center;
-}
-
-label {
-    color: white;
-    font-weight: 700;
-    font-size: 18px;
-}
-
-
-input {
-    color: rgb(63, 56, 56);
-    text-decoration: none;
-    margin-bottom: 5px;
-    margin-top: 10px;
-    text-align: center; 
-    display: inline-block;
-    font-weight: bold;
-    font-size: 15px;
-    border-radius: 100px;
-    padding: 5px 15px;
-    background-color: rgb(224, 172, 0);
-    border: 0px solid rgb(224, 172, 0);
-}
-
-select {
-    color: rgb(63, 56, 56);
-    text-decoration: none;
-    margin-bottom: 5px;
-    margin-top: 10px;
-    text-align: center; 
-    display: inline-block;
-    font-weight: bold;
-    font-size: 15px;
-    border-radius: 100px;
-    padding: 5px 15px;
-    background-color: rgb(224, 172, 0);
-    border: 0px solid rgb(224, 172, 0);
-}
-
-
-/* ------------------ Tabla ---------------*/
-  
 /* Estilos para la tabla */
 table {
     margin: 0 auto;

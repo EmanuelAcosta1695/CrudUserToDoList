@@ -59,7 +59,7 @@
                         <td>{{ user['nombre'] }}</td>
                         <td>{{ user['edad'] }}</td>
                         <td>{{ user['correo'] }}</td>
-                        <td><a href="{{ url_for('user.update_user', id=user['id']) }}">📝</a></td>
+                        <td><a href="{{ url_for('task.userTasks', name=user['nombre'], correo=user['correo'], idUser=user['id']) }}">📝</a></td>
                         <td><a href="{{ url_for('user.update_user', id=user['id']) }}">✏️</a></td>
                         <td><a href="{{ url_for('user.delete_user', id=user['id']) }}">🗑️</a></td>
                     </tr>
@@ -67,6 +67,6 @@
                 </tbody>
             </table>
         </div>
-</div>
+    </div>
 </body>
 </html>

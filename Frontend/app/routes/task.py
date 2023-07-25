@@ -26,7 +26,28 @@ def getTasks():
     
     except requests.exceptions.RequestException as e:
         return f"Error: {e}"
+
+
+# enviar name de usuario o sus datos como argumento y luego puedo enviar una lista al render
+@task.route('/userTasks/<string:name>/<string:correo>/<string:idUser>', methods=['GET'])
+def userTasks(name, correo, idUser):
+    try:
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            data = response.json()
+            
+            #return jsonify(data)  # Devuelve la respuesta de la API en formato JSON
+
+            return render_template('userTasks.html', userTasks=data, name=name, correo=correo, idUser=idUser)
+
+        else:
+            return f"Error: {response.status_code} - {response.text}"
     
+    except requests.exceptions.RequestException as e:
+        return f"Error: {e}"
+    
+
 
 
 @task.route('/task/<uuid:id>', methods=['GET'])

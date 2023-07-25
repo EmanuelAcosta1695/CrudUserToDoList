@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='userTasks.css') }}">
+    <title>User tasks</title>
+</head>
+<body>
+    
+    <div class="container">
+        <div>
+            <a class="tareas" href="{{ url_for('task.getTasks') }}">Ver tareas</a>
+            <a class="usuarios" href="{{ url_for('user.getUsers') }}">Ver usuarios</a>
+        </div>
+
+        <div>
+            <h1 class="title">{{ name }}</h1>
+            <h1 class="title">{{ correo }}</h1>
+        </div>
+    
+        <div id="tasks">
+            <table class="table">
+                <thead>
+                    <tr class="info">
+                        <th scope="col">Task</th>
+                        <th scope="col">Created at</th>
+                        <th scope="col">UsuarioId</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    {% for task in userTasks %}
+                        {% if task['usuario_id'] == idUser  %}
+                            <tr>
+                                <td>{{ task['tarea'] }}</td>
+                                <td>{{ task['fecha'] }}</td>
+                                <td>{{ task['usuario_id'] }}</td>
+                                <td>
+                                    {% if task['id_estado'] == 1 %}
+                                        Pendiente.
+                                    {% elif  task['id_estado'] == 2 %}
+                                        En progreso.
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    
+</body>
+</html>
