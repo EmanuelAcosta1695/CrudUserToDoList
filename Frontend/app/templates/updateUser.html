@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='updateUser.css') }}">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="form">
+            <p class="title">Update<b>User</b></p>
+    
+            <form method="post" class="form"> 
+                <label for="nombre">Nombre</label> 
+                <br>
+                <input name="nombre" value="{{ user['nombre'] }}" required />
+        
+                <br>
+                <label for="edad">Edad</label> 
+                <br>
+                <input name="edad" value="{{ user['edad'] }}" required />
+    
+                <br>
+                <label for="correo">Email</label>
+                <br>
+                <input name="correo" value="{{ user['correo'] }}" required />
+                
+                <br>
+                <input type="submit" value="Update" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>

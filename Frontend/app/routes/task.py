@@ -1,4 +1,4 @@
-from flask import render_template, jsonify, request, Blueprint
+from flask import render_template, jsonify, request, Blueprint, redirect, url_for
 import requests
 import uuid
 
@@ -53,9 +53,27 @@ def getTask(id: uuid.UUID):
 @task.route('/task/', methods=['POST'])
 def create_task():
     try:
-        # Obtener el JSON enviado en el cuerpo de la solicitud
-        data = request.get_json()
-        print(data)
+
+        # Obtener los datos enviados en el cuerpo de la solicitud
+        tarea = request.form.get('tarea')
+        usuarioID = request.form.get('usuarioID')
+        estado = request.form.get('estado')
+
+        if estado == "Pendiente":
+            id_estado = 1
+        
+        elif estado == "En progreso":
+            id_estado = 2
+                            
+        elif estado == "Completada":
+            id_estado = 3
+
+        # Convertir los datos a un diccionario
+        data = {
+            "tarea": tarea,
+            "usuario_id": usuarioID,
+            "id_estado": id_estado
+        }
 
         # Hacer el POST request a FastAPI
         response = requests.post(url, json=data)
@@ -64,7 +82,11 @@ def create_task():
 
         if response.status_code == 200:
             data = response.json()
-            return jsonify(data)
+            
+            #return jsonify(data)
+
+            return redirect(url_for('task.getTasks'))
+
         else:
             return f"Error: {response.status_code} - {response.text}"
     

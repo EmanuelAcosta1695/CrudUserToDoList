@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user.css') }}">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container">
+        <div>
+            <a class="tareas" href="{{ url_for('task.getTasks') }}">Ver tareas</a>
+        </div>
+
+        <div class="form">
+            <p class="title">Create<b>User</b></p>
+    
+            <form method="post" class="form"> 
+                <label for="nombre">Nombre</label> 
+                <br>
+                <input name="nombre" required />
+        
+                <br>
+                <label for="edad">Edad</label> 
+                <br>
+                <input name="edad" required />
+    
+                <br>
+                <label for="correo">Email</label>
+                <br>
+                <input name="correo" required />
+                
+                <br>
+                <input type="submit" value="Create" />
+        
+            </form>
+    
+        </div>
+    
+        <div class="users">
+            <table class="table">
+                <thead>
+                    <tr class="info">
+                        <th scope="col">Id</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Edad</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Tareas</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Borrar</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user['id'] }}</td>
+                        <td>{{ user['nombre'] }}</td>
+                        <td>{{ user['edad'] }}</td>
+                        <td>{{ user['correo'] }}</td>
+                        <td><a href="{{ url_for('user.update_user', id=user['id']) }}">📝</a></td>
+                        <td><a href="{{ url_for('user.update_user', id=user['id']) }}">✏️</a></td>
+                        <td><a href="{{ url_for('user.delete_user', id=user['id']) }}">🗑️</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+body {
+    font-family: 'Rufina', sans-serif;
+    background-color: #252323;
+    margin: 0px;
+    padding: 0px;   
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+
+.title {
+    text-align: center;
+    color: white;
+    margin-top: 25px;
+    font-size: 50px;
+}
+
+/* ------------------ Create task ---------------*/
+
+a {
+    color: rgb(63, 56, 56);
+    text-decoration: none;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 100px;
+    margin-left: 10px;
+    padding: 5px 15px;
+    background-color: rgb(224, 172, 0);
+    border: 0px solid rgb(224, 172, 0);
+}
+
+
+.form {
+    text-align: center;
+}
+
+label {
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+
+input {
+    color: rgb(63, 56, 56);
+    text-decoration: none;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    text-align: center; 
+    display: inline-block;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 100px;
+    padding: 5px 15px;
+    background-color: rgb(224, 172, 0);
+    border: 0px solid rgb(224, 172, 0);
+}
+
+select {
+    color: rgb(63, 56, 56);
+    text-decoration: none;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    text-align: center; 
+    display: inline-block;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 100px;
+    padding: 5px 15px;
+    background-color: rgb(224, 172, 0);
+    border: 0px solid rgb(224, 172, 0);
+}
+
+
+/* ------------------ FORMULARIO ---------------*/
+  
+/* Estilos para la tabla */
+table {
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 80%;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+th {
+    background-color: rgb(224, 172, 0);
+    border: 1px solid black;
+    color: #333;
+    padding: 10px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 10px;
+    background-color: white; /* Nuevo estilo para el fondo de las celdas */
+    text-align: center;
+
+}

@@ -2,41 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='task.css') }}">
     <title>Tasks</title>
 </head>
 
 <body>
 
-    <table class="listToDo">
-        <thead>
-            <tr>
-                <th>Task</th>
-                <th>Created at</th>
-                <th>UsuarioId</th>
-                <th>Id_estado</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for task in tasks %}
-            <tr>
-                <td>{{ task['tarea'] }}</td>
-                <td>{{ task['fecha'] }}</td>
-                <td>{{ task['usuario_id'] }}</td>
-                <td>
-                    {% if task['id_estado'] == 1 %}
-                        Pendiente.
-                    {% elif  task['id_estado'] == 2 %}
-                        En progreso.
-                    {% endif %}
-                </td>
-                <td></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="container">
+        <div>
+            <a href="{{ url_for('user.getUsers') }}">Ver usuarios</a>
+        </div>
+
+        <div class="form">
+            <p class="title">Create<b>Task</b></p>
     
+            <form method="post" class="form"> 
+                <label for="tarea">Tarea</label> 
+                <br>
+                <input name="tarea" required />
+                
+                <br>
+                <label for="usuarioID">UsuarioID</label> 
+                <br>
+                <input name="usuarioID" required />
+        
+                <br>
+                <label for="estado">Estado</label>
+                <br>
+                <select name="estado" required>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="En progreso">En progreso</option>
+                    <option value="Completada">Completada</option>
+                </select>
+                
+                <br>
+                <input type="submit" value="Create" />
+        
+            </form>
+    
+        </div>
+
+        <div id="tasks">
+            <table class="table">
+                <thead>
+                    <tr class="info">
+                        <th scope="col">Task</th>
+                        <th scope="col">Created at</th>
+                        <th scope="col">UsuarioId</th>
+                        <th scope="col">Id_estado</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    {% for task in tasks %}
+                    <tr>
+                        <td>{{ task['tarea'] }}</td>
+                        <td>{{ task['fecha'] }}</td>
+                        <td>{{ task['usuario_id'] }}</td>
+                        <td>
+                            {% if task['id_estado'] == 1 %}
+                                Pendiente.
+                            {% elif  task['id_estado'] == 2 %}
+                                En progreso.
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
 </body>
 
 </html>

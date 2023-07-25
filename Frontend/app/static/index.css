@@ -1,0 +1,46 @@
+body {
+    font-family: 'Rufina', sans-serif;
+    background-color: #252323;
+    margin: 0px;
+    padding: 0px; 
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #deb979;
+    margin-left: 150px;
+    margin-top: 100px;
+    margin-right: 150px;
+    padding-bottom: 25px;
+}
+
+.title {
+    text-align: center;
+    color: black;
+    margin-top: 25px;
+    font-size: 50px;
+}
+
+button {
+    text-align: center;
+    font-size: 25px;
+    border-radius: 15px ;
+    border: 1px solid black;
+    padding: 10px;
+    background-color: black;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration:none;
+    color: white;
+}
+
+
+.opciones {
+    text-align: center;
+    margin-top: 10px;
+}
