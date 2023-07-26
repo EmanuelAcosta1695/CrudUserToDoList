@@ -12,7 +12,7 @@
 
     <div class="container">
         <div>
-            <a href="{{ url_for('user.getUsers') }}">Ver usuarios</a>
+            <a class="usuarios" href="{{ url_for('user.getUsers') }}">Ver usuarios</a>
         </div>
 
         <div class="form">
@@ -24,10 +24,14 @@
                 <input name="tarea" required />
                 
                 <br>
-                <label for="usuarioID">UsuarioID</label> 
+                <label for="userCorreo">Usuario</label> 
                 <br>
-                <input name="usuarioID" required />
-        
+                <select name="userCorreo" required>
+                    {% for user in users %}
+                        <option value="{{ user['correo'] }}">{{ user['correo'] }}</option>
+                    {% endfor %}
+                </select>
+                
                 <br>
                 <label for="estado">Estado</label>
                 <br>
@@ -49,24 +53,46 @@
                 <thead>
                     <tr class="info">
                         <th scope="col">Task</th>
-                        <th scope="col">Created at</th>
-                        <th scope="col">UsuarioId</th>
-                        <th scope="col">Id_estado</th>
+                        <th scope="col"><a href="{{ url_for('task.getTasks', filtro='fecha') }}">Created at</a></th>
+                        <th scope="col"><a href="{{ url_for('task.getTasks', filtro='usuario_id') }}">UsuarioId</a></th>
+                        <th scope="col"><a href="{{ url_for('task.getTasks', filtro='id_estado') }}">Id_estado</a></th>
+                        <th scope="col">Editar</th>
                     </tr>
                 </thead>
                 <tbody id="tbody">
                     {% for task in tasks %}
                     <tr>
-                        <td>{{ task['tarea'] }}</td>
-                        <td>{{ task['fecha'] }}</td>
-                        <td>{{ task['usuario_id'] }}</td>
-                        <td>
-                            {% if task['id_estado'] == 1 %}
-                                Pendiente.
-                            {% elif  task['id_estado'] == 2 %}
-                                En progreso.
-                            {% endif %}
-                        </td>
+                        {% if task['id_estado'] != 3 %}
+                            <td>{{ task['tarea'] }}</td>
+                            <td>{{ task['fecha'] }}</td>
+                            <td>{{ task['usuario_id'] }}</td>
+                            <td>
+                                <details>
+                                    {% if task['id_estado'] == 1 %}
+                                        <summary>Pendiente</summary>
+                                        <ul>
+                                            <li>
+                                                <a href="{{ url_for('task.update_task', id=task['id'], estado='En progreso') }}">En progreso</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ url_for('task.update_task', id=task['id'], estado='Completo') }}">Completo</a>
+                                            </li>
+                                        </ul>
+                                    {% elif  task['id_estado'] == 2 %}
+                                        <summary>En progreso</summary>
+                                        <ul>
+                                            <li>
+                                                <a href="{{ url_for('task.update_task', id=task['id'], estado='Pendiente') }}">Pendiente</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ url_for('task.update_task', id=task['id'], estado='Completo') }}">Completo</a>
+                                            </li>
+                                        </ul>
+                                    {% endif %}    
+                                </details>
+                            </td>
+                            <td><a href="{{ url_for('task.delete_task', id=task['id']) }}">🗑️</a></td>
+                        {% endif %} 
                     </tr>
                     {% endfor %}
                 </tbody>

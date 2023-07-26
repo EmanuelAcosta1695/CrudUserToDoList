@@ -10,7 +10,7 @@
     
     <div class="container">
         <div>
-            <a class="tareas" href="{{ url_for('task.getTasks') }}">Ver tareas</a>
+            <a class="tareas" href="{{ url_for('task.getTasks', filtro=' ') }}">Ver tareas</a>
             <a class="usuarios" href="{{ url_for('user.getUsers') }}">Ver usuarios</a>
         </div>
 
@@ -32,18 +32,20 @@
                 <tbody id="tbody">
                     {% for task in userTasks %}
                         {% if task['usuario_id'] == idUser  %}
-                            <tr>
-                                <td>{{ task['tarea'] }}</td>
-                                <td>{{ task['fecha'] }}</td>
-                                <td>{{ task['usuario_id'] }}</td>
-                                <td>
-                                    {% if task['id_estado'] == 1 %}
-                                        Pendiente.
-                                    {% elif  task['id_estado'] == 2 %}
-                                        En progreso.
-                                    {% endif %}
-                                </td>
-                            </tr>
+                            {% if task['id_estado'] != 3 %}
+                                <tr>
+                                    <td>{{ task['tarea'] }}</td>
+                                    <td>{{ task['fecha'] }}</td>
+                                    <td>{{ task['usuario_id'] }}</td>
+                                    <td>
+                                        {% if task['id_estado'] == 1 %}
+                                            Pendiente.
+                                        {% elif  task['id_estado'] == 2 %}
+                                            En progreso.
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 </tbody>

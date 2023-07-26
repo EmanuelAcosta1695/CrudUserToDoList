@@ -7,22 +7,30 @@ task = Blueprint('task', __name__)
 
 # URL de la ruta en FastAPI
 url = "http://localhost:8000/task/"
+url_user = "http://localhost:8000/user/"
 
 
-@task.route('/task/', methods=['GET'])
-def getTasks():
+@task.route('/task/<string:filtro>', methods=['GET'])
+def getTasks(filtro):
     try:
-        response = requests.get(url)
+        response_task = requests.get(url)
+        response_users = requests.get(url_user)
 
-        if response.status_code == 200:
-            data = response.json()
-            
+        if response_task.status_code == 200 and response_users.status_code == 200:
+            data_task = response_task.json()
+            data_users = response_users.json()
+
+            if filtro!=" ":
+                list_task = sorted(data_task, key=lambda x: x[filtro])
+            else:
+                list_task = data_task
+
             #return jsonify(data)  # Devuelve la respuesta de la API en formato JSON
 
-            return render_template('task.html', tasks=data)
+            return render_template('task.html', tasks=list_task, users=data_users)
 
         else:
-            return f"Error: {response.status_code} - {response.text}"
+            return f"Error: {response_task.status_code} - {response_task.text}"
     
     except requests.exceptions.RequestException as e:
         return f"Error: {e}"
@@ -73,12 +81,24 @@ def getTask(id: uuid.UUID):
 # }
 @task.route('/task/', methods=['POST'])
 def create_task():
-    try:
 
+    response_users = requests.get(url_user)
+
+    if response_users.status_code == 200:   
+        data_users = response_users.json()
+
+
+    try:
         # Obtener los datos enviados en el cuerpo de la solicitud
         tarea = request.form.get('tarea')
-        usuarioID = request.form.get('usuarioID')
+        usuario = request.form.get('userCorreo')
         estado = request.form.get('estado')
+
+        for user in data_users:
+
+            if user['correo'] == usuario:
+                usuario_id = user['id']
+
 
         if estado == "Pendiente":
             id_estado = 1
@@ -92,14 +112,13 @@ def create_task():
         # Convertir los datos a un diccionario
         data = {
             "tarea": tarea,
-            "usuario_id": usuarioID,
+            "usuario_id": usuario_id,
             "id_estado": id_estado
         }
 
         # Hacer el POST request a FastAPI
         response = requests.post(url, json=data)
 
-        print(response)
 
         if response.status_code == 200:
             data = response.json()
@@ -115,24 +134,38 @@ def create_task():
         return f"Error: {e}"
     
 
+# <td><a href="{{ url_for('task.update_task', id=task['id']) }}">✏️</a></td>
+@task.route('/updateTask/<uuid:id>/<string:estado>', methods=['GET', 'POST', 'PUT'])
+def update_task(id: uuid.UUID, estado:str):
 
-@task.route('/task/<uuid:id>', methods=['PUT'])
-def update_task(id: uuid.UUID):
+    response = requests.get(f"{url}{id}")
+
+    if response.status_code == 200:
+        data = response.json()
+
     try:
         # Obtener el JSON enviado en el cuerpo de la solicitud
-        data = request.get_json()
+        #data = request.get_json()
 
-        # Construir la URL para FastAPI con el ID proporcionado
-        update_url = f"{url}{id}"
+        if estado == "Pendiente":
+            data['id_estado'] = 1
+        
+        elif estado == "En progreso":
+            data['id_estado'] = 2
+                            
+        elif estado == "Completo":
+            data['id_estado'] = 3
+
 
         # Hacer el PUT request a FastAPI
-        response = requests.put(update_url, json=data)
+        update_response = requests.put(f"{url}{id}", json=data)
 
-        if response.status_code == 200:
-            data = response.json()
-            return jsonify(data)
+        if update_response.status_code == 200:
+            #data = response.json()
+            #return jsonify(data)
+
+            return redirect(url_for('task.getTasks'))
            
-
         else:
             return f"Error: {response.status_code} - {response.text}"
     
@@ -141,7 +174,7 @@ def update_task(id: uuid.UUID):
     
 
 
-@task.route('/task/<uuid:id>', methods=['DELETE'])
+@task.route('/deleteTask/<uuid:id>', methods=['GET', 'POST', 'DELETE'])
 def delete_task(id: uuid.UUID):
     try:
         # Construir la URL para FastAPI con el ID proporcionado
@@ -152,8 +185,10 @@ def delete_task(id: uuid.UUID):
         print(response)
 
         if response.status_code == 200:
-            data = response.json()
-            return jsonify(data)
+            # data = response.json()
+            # return jsonify(data)
+
+            return redirect(url_for('task.getTasks', filtro=" "))
         else:
             return f"Error: {response.status_code} - {response.text}"
     
