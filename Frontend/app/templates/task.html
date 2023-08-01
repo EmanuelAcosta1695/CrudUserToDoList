@@ -19,12 +19,12 @@
             <p class="title">Create<b>Task</b></p>
     
             <form method="post" class="form"> 
-                <label for="tarea">Tarea</label> 
+                <label for="tarea">Tarea:</label> 
                 <br>
                 <input name="tarea" required />
                 
                 <br>
-                <label for="userCorreo">Usuario</label> 
+                <label for="userCorreo">Usuario:</label> 
                 <br>
                 <select name="userCorreo" required>
                     {% for user in users %}
@@ -33,7 +33,7 @@
                 </select>
                 
                 <br>
-                <label for="estado">Estado</label>
+                <label for="estado">Estado:</label>
                 <br>
                 <select name="estado" required>
                     <option value="Pendiente">Pendiente</option>
@@ -56,7 +56,7 @@
                         <th scope="col"><a href="{{ url_for('task.getTasks', filtro='fecha') }}">Created at</a></th>
                         <th scope="col"><a href="{{ url_for('task.getTasks', filtro='usuario_id') }}">UsuarioId</a></th>
                         <th scope="col"><a href="{{ url_for('task.getTasks', filtro='id_estado') }}">Id_estado</a></th>
-                        <th scope="col">Editar</th>
+                        <th scope="col">Borrar</th>
                     </tr>
                 </thead>
                 <tbody id="tbody">
@@ -72,26 +72,26 @@
                                         <summary>Pendiente</summary>
                                         <ul>
                                             <li>
-                                                <a href="{{ url_for('task.update_task', id=task['id'], estado='En progreso') }}">En progreso</a>
+                                                <a href="{{ url_for('task.update_task', id=task['id'], estado='En progreso', pagina='task') }}">En progreso</a>
                                             </li>
                                             <li>
-                                                <a href="{{ url_for('task.update_task', id=task['id'], estado='Completo') }}">Completo</a>
+                                                <a href="{{ url_for('task.update_task', id=task['id'], estado='Completo', pagina='task') }}">Completo</a>
                                             </li>
                                         </ul>
                                     {% elif  task['id_estado'] == 2 %}
                                         <summary>En progreso</summary>
                                         <ul>
                                             <li>
-                                                <a href="{{ url_for('task.update_task', id=task['id'], estado='Pendiente') }}">Pendiente</a>
+                                                <a href="{{ url_for('task.update_task', id=task['id'], estado='Pendiente', pagina='task') }}">Pendiente</a>
                                             </li>
                                             <li>
-                                                <a href="{{ url_for('task.update_task', id=task['id'], estado='Completo') }}">Completo</a>
+                                                <a href="{{ url_for('task.update_task', id=task['id'], estado='Completo', pagina='task') }}">Completo</a>
                                             </li>
                                         </ul>
                                     {% endif %}    
                                 </details>
                             </td>
-                            <td><a href="{{ url_for('task.delete_task', id=task['id']) }}">🗑️</a></td>
+                            <td><a href="{{ url_for('task.delete_task', id=task['id'], pagina='task') }}">🗑️</a></td>
                         {% endif %} 
                     </tr>
                     {% endfor %}

@@ -10,8 +10,8 @@
     
     <div class="container">
         <div>
-            <a class="tareas" href="{{ url_for('task.getTasks', filtro=' ') }}">Ver tareas</a>
-            <a class="usuarios" href="{{ url_for('user.getUsers') }}">Ver usuarios</a>
+            <a class="links" href="{{ url_for('task.getTasks', filtro=' ') }}">Ver tareas</a>
+            <a class="links" href="{{ url_for('user.getUsers') }}">Ver usuarios</a>
         </div>
 
         <div>
@@ -27,6 +27,7 @@
                         <th scope="col">Created at</th>
                         <th scope="col">UsuarioId</th>
                         <th scope="col">Estado</th>
+                        <th scope="col">Borrar</th>
                     </tr>
                 </thead>
                 <tbody id="tbody">
@@ -38,12 +39,31 @@
                                     <td>{{ task['fecha'] }}</td>
                                     <td>{{ task['usuario_id'] }}</td>
                                     <td>
-                                        {% if task['id_estado'] == 1 %}
-                                            Pendiente.
-                                        {% elif  task['id_estado'] == 2 %}
-                                            En progreso.
-                                        {% endif %}
+                                        <details>
+                                            {% if task['id_estado'] == 1 %}
+                                                <summary>Pendiente</summary>
+                                                <ul>
+                                                    <li>
+                                                        <a href="{{ url_for('task.update_task', id=task['id'], estado='En progreso', pagina='user', name=name, correo=correo, idUser=idUser) }}">En progreso</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ url_for('task.update_task', id=task['id'], estado='Completo', pagina='user', name=name, correo=correo, idUser=idUser) }}">Completo</a>
+                                                    </li>
+                                                </ul>
+                                            {% elif  task['id_estado'] == 2 %}
+                                                <summary>En progreso</summary>
+                                                <ul>
+                                                    <li>
+                                                        <a href="{{ url_for('task.update_task', id=task['id'], estado='Pendiente', pagina='user', name=name, correo=correo, idUser=idUser) }}">Pendiente</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ url_for('task.update_task', id=task['id'], estado='Completo', pagina='user', name=name, correo=correo, idUser=idUser) }}">Completo</a>
+                                                    </li>
+                                                </ul>
+                                            {% endif %}    
+                                        </details>
                                     </td>
+                                    <td><a class="links" href="{{ url_for('task.delete_task', id=task['id'], pagina='user') }}">🗑️</a></td>
                                 </tr>
                             {% endif %}
                         {% endif %}
