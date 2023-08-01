@@ -18,11 +18,5 @@ Forma de Evaluación
     tener en cuenta los estados a la hora de mostrarlas, ya que en caso de estar completadas no
     deberían estar.
 
-ítem 2 (No se podrá usar frameworks)
-- Obteniendo datos de la API THE MOVIE DB:
-    ▪ Se deberá realizar vistas (HTML – CSS – JS), de las películas:
-    ▪ Personas Populares de la pagina 7
-    ▪ Al hacer click sobre cualquiera de las personas se deberá mostrar sus datos como por
-    ejemplo la imagen siguiente (se deberá ser fiel a la imagen, en orden, formato y colores).
-    Tener en cuenta que en la sección “conocido por” son películas o series en la que ha
-    trabajado.
+
+Para ver 'Ítem 2', dirigirse a: https://github.com/Krost16/ConsumeMovieApi.git
